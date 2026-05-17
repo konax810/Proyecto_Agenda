@@ -8,9 +8,9 @@ const hostname = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
 mongoose
-  .connect(url)
-  .then(() => console.log("✅ ¡Conexión exitosa a la base de datos!"))
-  .catch((err) => console.error("❌ Error al conectar a la base de datos", err));
+  .connect(url, {serverSelectionTimeoutMS: 2000}) //solo busca 2 segundos y sigue
+  .then(() => console.log("✅ Conectado"))
+  .catch((err) => console.error("⚠️ Mongo local no disponible en la nube, pero el servidor sigue vivo.", err));
 
 const contactoSchema = new mongoose.Schema({
   nombre: { type: String, required: true, maxlength: 70 },
