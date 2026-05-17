@@ -227,8 +227,19 @@ const server = http.createServer(async (req, res) => {
         });
         }
 
-    // 7. RUTA NO ENCONTRADA
+    // 7. RUTA NO ENCONTRADA / CONTROL PRINCIPAL
     else {
+        // Si entra a la página principal limpia de Railway, avisa que el backend funciona
+        if (req.url === "/" || req.url === ""){
+            res.writeHead(200, { "Content-Type": "application/json" });
+            return res.end(JSON.stringify({
+                estado: "ONLINE",
+                proyecto: "Backend Agend 2026 - Universidad Surcolombiana",
+                mensaje: "¡Servidor API desplegado con éxito en Railway! Los endpoints /login y /guardar están operativos."
+            }));
+        }
+
+        //Para cualquier otra ruta loca que escriban
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ mensaje: "Ruta no encontrada" }));
     }
