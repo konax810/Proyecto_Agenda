@@ -233,7 +233,7 @@ async function cargarContactos(grupoSeleccionado = 'General') {
         // 4. Actualizamos el título del panel central de tu agenda
         const titulo = document.getElementById('tituloLista');
         if (titulo) {
-            titulo.innerText = grupoSeleccionado.trim().toLocaleLowerCase() === 'General' 
+            titulo.innerText = grupoSeleccionado.trim().toLocaleLowerCase() === 'general' 
                 ? "Todos los Contactos" 
                 : `Contactos: ${grupoSeleccionado}`;
         }
