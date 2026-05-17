@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+    <!--sín el style -->
+    <!--Conecciones correctas-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgendaPro - Sebastian Escobar</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/681/681494.png">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+    <!--Conecciones correctas-->
+<body>
+
+<div id="pantallaLogin" style="display: flex; align-items: center; justify-content: center; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(10, 11, 30, 1); z-index: 9999;">
+
+    <div style="background: #1a1a2e; padding: 40px; border-radius: 20px; width: 320px; text-align: center; border: 1px solid #0f3460; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <h2 style="color: #fff; margin-bottom: 25px; font-family: sans-serif;">🔐 Acceso AgendaPro</h2>
+        
+        <div style="text-align: left; margin-bottom: 15px;">
+            <label style="color: #e94560; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">USUARIO</label>
+            <input type="text" id="inputUsuario" placeholder="Ej: sebastian" 
+                   style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #16213e; background: #16213e; color: white; margin-top: 5px; box-sizing: border-box;">
+        </div>
+
+        <div style="text-align: left; margin-bottom: 25px; position: relative;">
+            <label style="color: #e94560; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">CONTRASEÑA</label>
+            <input type="password" id="inputPass" placeholder="Mín. 6 caracteres y 1 número (ej: hola123)"
+                   style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #16213e; background: #16213e; color: white; margin-top: 5px; box-sizing: border-box;">
+            <span id="btnOjo" onclick="togglePassword()" 
+                  style="position: absolute; right: 12px; top: 35px; cursor: pointer; font-size: 1.2rem; user-select: none;">👁️</span>
+        </div>
+
+        <button onclick="loguearUsuario()" class="btn-nuevo" style="width: 100%; padding: 12px; font-weight: bold; cursor: pointer;">INGRESAR</button>
+    </div>
+</div>
+
+<div class="contenedor-principal">
+
+    <aside class="barra-lateral">
+            <!-- logo -->
+        <div class="logo-title" onclick="volverAlInicio()">
+            <h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 10px;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                AgendaPro
+            </h1>
+        </div>
+        <!-- logo -->
+            <button class="btn-nuevo" onclick="mostrarFormulario()">+ Nuevo Contacto</button>
+            
+            <nav class="filtros">
+                <p style="font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; margin-bottom: 10px;">Categorías</p>
+                <ul id="listaCategoriasDinamica" style="list-style: none; padding: 0;">
+                    <li onclick="filtrar('General')" style="cursor:pointer; padding: 5px 0;">📁 General</li>
+                    <li onclick="filtrar('SENA')" style="cursor:pointer; padding: 5px 0;">🎓 SENA</li>
+                    <li onclick="filtrar('Universidad')" style="cursor:pointer; padding: 5px 0;">🏛️ Universidad</li>
+                    <li onclick="filtrar('Gym')" style="cursor:pointer; padding: 5px 0;">💪 Gym</li>
+                </ul>
+            </nav>
+
+            <div class="user-badge-container">
+                <!-- Verpificación nombre de usuario -->
+                <span id="nombreUserDisplay"></span>
+                <!-- Verpificación nombre de usuario -->
+                <button onclick="cerrarSesion()" class="btn-cerrar-sesion">Salir</button>
+            </div>
+
+            <div class="switch-dark" onclick="toggleDarkMode()">🌙 Modo Oscuro</div>
+    </aside>
+
+    <section class="listado-nombres">
+    <div style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+        <input type="text" id="buscador" placeholder="🔍 Buscar por nombre o apodo..." 
+               style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-main); color: var(--text-main); font-size: 0.85rem;">
+    </div>
+
+    <h3 id="tituloLista" style="margin-top: 10px; padding-left: 10px;">Todos los Contactos</h3>
+    <div id="listaContactos"></div>
+    </section>
+
+    <section class="panel-detalle">
+        <div id="vistaEstadoVacio">
+            <img src="https://cdn-icons-png.flaticon.com/512/5082/5082602.png" width="80" style="opacity: 0.3;">
+            <p>Selecciona un contacto para ver detalles</p>
+        </div>
+
+        <div id="detalleContactoVisor" class="detalle-card" style="display: none;"></div>
+
+        <form id="formularioAgenda" style="display: none; width: 100%; max-width: 600px;">
+    <h3 style="color: var(--btn-action); margin-top: 0;">Nuevo Registro</h3>
+    
+    <div class="grid-formulario">
+    <div>
+        <label><small><b>Nombre (Obligatorio)</b></small></label>
+        <input type="text" id="nombreContacto" placeholder="Ej: Sebastian Escobar" required style="width:100%">
+    </div>
+    <div>
+        <!-- Apodo -->
+        <label><small><b>Apodo (Opcional)</b></small></label>
+        <input type="text" id="apodoContacto" placeholder="Ej: Sebas" style="width:100%">
+    </div>
+
+    <div>
+        <label><small><b>Teléfono (Obligatorio)</b></small></label>
+        <input type="tel" id="telefonoContacto" placeholder="+57 310..." required style="width:100%">
+    </div>
+    <div>
+        <label><small><b>Correo (Opcional)</b></small></label>
+        <input type="email" id="correoContacto" placeholder="ejemplo@correo.com" style="width:100%">
+    </div>
+
+    <div class="campo-completo">
+        <label><small><b>Categoría / Subgrupo</b></small></label>
+        <input list="sugerenciasGrupos" id="grupoContacto" placeholder="Toca para ver ejemplos..." style="width:100%">
+        <datalist id="sugerenciasGrupos"></datalist>
+    </div>
+    
+    <div class="campo-completo">
+        <label><small>Notas</small></label>
+        <textarea id="notasContacto" placeholder="Algo que debas recordar..." style="width:100%; height: 60px;"></textarea>
+    </div>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; gap: 10px;">
+        <button type="button" class="btn-nuevo" style="flex: 2; padding: 12px;" onclick="confirmarGuardado()">Guardar en MongoDB</button>
+        <button type="button" onclick="volverAlInicio()" style="flex: 1; background: #64748b; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Cancelar</button>
+        </div>
+    </form>
+    </section>
+</div>
+
+<!-- Solo esta línea debe ir aquí, sin etiquetas <script> extras alrededor -->
+<script src="script.js"></script>
+
+</body>
+
+</html>

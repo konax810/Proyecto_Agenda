@@ -1,0 +1,502 @@
+@media (max-width: 768px) {
+
+    #vistaEstadoVacio {
+        display: none !important;
+    }
+
+    /* Mostramos el contenedor de filtros */
+    .filtros-movil {
+        display: block !important;
+        width: 100%;
+        overflow-x: auto; /* Permite deslizar si hay muchos subgrupos */
+        white-space: nowrap;
+        padding: 10px 0;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 1. Reset de pantalla */
+    html, body {
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    html{
+        background: var(--bg-main) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body{
+        height: auto !important;
+        overflow-y: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: var(--bg-main) !important;
+    }
+
+    .tarjeta-contacto-bloque {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-right: 0 !important;
+    }
+
+    #listaContactos {
+        display: block !important;
+    }
+
+    /* 2. Juntamos las 3 barras: ahora fluyen hacia abajo */
+    .contenedor-principal {
+        min-height: 100vh !important;
+        flex-direction: column !important; 
+        height: auto !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Esto hace que dejen de estar pegadas de lado a lado */
+    .barra-lateral, .listado-nombres, .panel-detalle {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important; 
+        display: block; /* Se ponen una debajo de otra */
+    }
+
+    .listado-nombres {
+        padding: 10px !important;
+        box-sizing: border-box !important;
+        max-height: none !important;
+        height: auto !important;
+        overflow-y: visible !important;
+    }
+
+    /* EL CAMBIO PARA EL PANEL DETALLE */
+    .panel-detalle {
+        position: relative !important; /* ← cambia fixed por relative */
+        width: 100% !important;
+        height: auto !important;      /* ← cambia 100% por auto */
+        background-color: var(--bg-card) !important;
+        z-index: 1;
+        display: block;               /* ← siempre visible */
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    /* Clase que activaremos con JavaScript */
+    .panel-detalle.activo {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    /* 4. El formulario: para que el botón de cerrar sea visible */
+    #formularioAgenda {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+        position: relative !important; /* Para que no flote sobre otros botones */
+    }
+
+    #formularioAgenda, #detalleContactoVisor {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 500;
+        overflow-y: auto;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
+
+
+    .logo-title {
+        width: 100%;
+    }
+
+    /* Botones más grandes para el dedo */
+    .btn-nuevo, .btn-cerrar-sesion {
+        padding: 12px !important;
+    }
+
+    /* 1. Hacemos que el contenedor de categorías sea deslizable horizontalmente */
+    .filtros {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        width: 100% !important;
+        overflow-x: auto !important; /* Permite deslizar con el dedo */
+        overflow-y: visible !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        white-space: nowrap !important;
+        padding: 10px 5px !important;
+        margin-bottom: 10px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Ocultamos el texto pequeño de "Categorías" para ganar espacio */
+    .filtros p {
+        display: none !important;
+    }
+
+    #listaCategoriasDinamicas::-webkit-scrollbar{
+        display:none;
+    }
+
+    #listaCategoriasDinamica {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        flex-wrap: nowrap !important;
+        padding-bottom: 5px !important;
+        max-width: none !important;
+        display: flex !important;
+        flex-direction: row !important; /* En móvil van de lado a lado */
+        gap: 8px !important;
+        list-style: none;
+        padding: 0 15px;
+        margin: 0;
+    }
+
+    #listaCategoriasDinamica li {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        padding: 8px 16px !important;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        border: 1px solid rgba(233, 69, 96, 0.3);
+        flex-shrink: 0; /* Evita que los botones se achiquen */
+    }
+
+    .user-badge-container {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0;
+    }
+
+    .switch-dark {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    /* 5. Los botones dentro del formulario */
+    .grid-formulario {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px;
+    }
+
+    .campo-completo {
+        grid-column: span 1;
+    }
+
+    .barra-lateral {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        overflow: visible !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: unset !important;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    /* Poner usuario y salir en una fila */
+    .user-badge-container {
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0;
+    }
+
+}
+
+        /* Limitar el alto de la sección de categorías */
+        .filtros {
+            flex-grow: 1; 
+            margin-top: 20px;
+            max-height: 50vh; /* Ocupa máximo la mitad de la pantalla */
+            overflow-y: auto; /* Activa el scroll interno */
+            padding-right: 8px;
+        }
+
+        /* Personalización de la barrita de scroll para que combine */
+        .filtros::-webkit-scrollbar {
+            width: 6px; /* Ancho de la barrita */
+            display: none;
+        }
+
+        .filtros::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05); /* Fondo de la barrita casi invisible */
+            border-radius: 10px;
+        }
+
+        .filtros::-webkit-scrollbar-thumb {
+            background: var(--btn-action); /* Usa el azul de tus botones */
+            border-radius: 10px;
+        }
+
+        .filtros::-webkit-scrollbar-thumb:hover {
+            background: #2563eb; /* Un azul más oscuro al pasar el mouse */
+        }
+
+        :root {
+            --sidebar-bg: #1e293b; 
+            --btn-action: #3b82f6; 
+            --bg-main: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --border-color: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --sidebar-bg: #0f172a;
+            --btn-action: #2563eb;
+            --bg-main: #111827;
+            --bg-card: #1f2937;
+            --text-main: #f1f5f9;
+            --border-color: #374151;
+        }
+
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: var(--bg-main); 
+            color: var(--text-main);
+            margin: 0; 
+            height: 100vh; 
+            display: flex; 
+            overflow: hidden; 
+            transition: background 0.3s;
+        }
+
+        .contenedor-principal { 
+            display: flex; 
+            width: 100%; 
+            min-height: 100vh;
+            background: var(--bg-card);
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .barra-lateral { 
+            width: 250px; 
+            background-color: var(--sidebar-bg); 
+            color: white; 
+            padding: 25px; 
+            border-right: 1px solid var(--border-color); 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title { cursor: pointer; transition: 0.2s; }
+        .logo-title:hover { opacity: 0.8; }
+        .barra-lateral h1 { font-size: 1.2rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+
+        .btn-nuevo { 
+            background-color: var(--btn-action); 
+            color: white; 
+            padding: 12px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-bottom: 20px; 
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-nuevo:hover { transform: scale(1.02); background: #2563eb; }
+
+        .listado-nombres { 
+            flex: 1.3; 
+            border-right: 1px solid var(--border-color); 
+            padding: 25px; 
+            background: var(--bg-main); 
+            overflow-y: auto; 
+        }
+
+        .listado-nombres::-webkit-scrollbar { width: 6px; }
+        .listado-nombres::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        .listado-nombres::-webkit-scrollbar-thumb:hover { background: var(--btn-action); }
+
+    .tarjeta-contacto-bloque {
+        background: var(--bg-card); 
+        margin-bottom: 12px; 
+        padding: 15px; 
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+        cursor: pointer; 
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        border: 1px solid var(--border-color);
+    }
+    .tarjeta-contacto-bloque:hover { 
+        border-color: var(--btn-action); 
+        transform: translateX(5px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .panel-detalle { 
+        flex: 2; 
+        padding: 30px; 
+        background: var(--bg-card);
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+    }
+
+        .detalle-card { 
+            background: var(--bg-main); 
+            padding: 30px; 
+            border-radius: 20px; 
+            width: 100%; 
+            max-width: 450px; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .switch-dark {
+            margin-top: auto;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        input, textarea { 
+            background: var(--bg-card); 
+            color: var(--text-main); 
+            border: 1px solid var(--border-color);
+            width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 8px; box-sizing: border-box; 
+            transition: all 0.2s ease-in-out;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--btn-action);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            transform: scale(1.02);
+        }
+
+        /* 2. Estado Vacío (El mensaje de invitación) */
+        #vistaEstadoVacio {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            gap: 20px;
+            color: var(--text-main);
+            opacity: 0.6; /* Se ve sutil, como una marca de agua */
+        }
+
+        /* Estilo base para el formulario y el visor de detalles */
+        #formularioAgenda, #detalleContactoVisor {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: none; /* Se activa con JS */
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Fade-in solo para el visor de detalles */
+    #detalleContactoVisor {
+    animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bloque de notas diferenciado */
+    .notas-visor {
+        background: rgba(99, 102, 241, 0.08);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        border-left: 4px solid var(--btn-action);
+        color: var(--text-main);
+        box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+    }
+
+    .badge-general     { background-color: #6366f1 !important; }
+    .badge-sena        { background-color: #39a900 !important; }
+    .badge-universidad { background-color: #003262 !important; }
+    .badge-gym         { background-color: #ff4500 !important; }
+    .badge-musica      { background-color: #8a2be2 !important; }
+    .badge- , [class^="badge-"] {
+    background-color: #6366f1;
+    }
+
+                /* Configuración de las dos columnas para el formulario */
+        .grid-formulario {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Divide el espacio en dos */
+            gap: 15px; /* Espacio entre los cuadros de texto */
+            text-align: left;
+        }
+
+        /* Para elementos que deben ocupar todo el ancho (como Notas o Categoría) */
+        .campo-completo {
+            grid-column: span 2;
+        }
+
+        .user-badge-container {
+            margin-top: auto; 
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05); 
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column; 
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-top: 1px solid rgba(255, 255, 255, 0.2); 
+        }
+
+    #nombreUserDisplay {
+        font-size: 0.85rem;
+        color: #ccc;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btn-cerrar-sesion {
+        background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+        color: white;
+        border: none;
+        padding: 6px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-weight: bold;
+        transition: filter 0.2s ease, transform 0.2s ease;
+    }
+    .btn-cerrar-sesion:hover {
+        background: #ff2e63;
+        transform: scale(1.02);
+    }
+
+        label b { display: inline-block; margin-bottom: 8px; margin-top: 5px; color: var(--text-main); opacity: 0.9; }
+
+        /*todo el código style presente */
