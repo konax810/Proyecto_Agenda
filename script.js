@@ -219,19 +219,23 @@ async function cargarContactos(grupoSeleccionado = 'General') {
         const respuesta = await fetch(url);
         const contactos = await respuesta.json();
 
-        // 🔎 FILTRADO: Usamos '.grupo' que es el nombre real en tu MongoDB
-        let contactosFiltrados = contactos;
-        if (grupoSeleccionado !== 'General') {
-            contactosFiltrados = contactos.filter(c => c.grupo === grupoSeleccionado);
-        }
+        // 2. 🔍 FILTRADO TOLERANTE: Limpia espacios y pasa a minúsculas
+        let contactosFiltrados = contactos.filter(c =>{
+            //Si por error un contacto no tiene grupo, lo tratamos como 'genral'
+            const grupoContacto = (c.grupo || 'General').trim().toLowerCase();
+            const grupoBuscado = grupoSeleccionado.trim().toLowerCase();
+            return grupoContacto === grupoBuscado;
+        });
 
-        // Dibujamos los contactos filtrados en la pantalla
-        renderizarContactos(contactos);
+        // 3. Mandamos a renderizar los contactos que pasaron el filtro
+        renderizarContactos(contactosFiltrados);
 
-        // Actualizamos el título de la columna central
+        // 4. Actualizamos el título del panel central de tu agenda
         const titulo = document.getElementById('tituloLista');
         if (titulo) {
-            titulo.innerText = grupoSeleccionado === 'General' ? "Todos los Contactos" : `Contactos: ${grupoSeleccionado}`;
+            titulo.innerText = grupoSeleccionado.trim().toLocaleLowerCase() === 'General' 
+                ? "Todos los Contactos" 
+                : `Contactos: ${grupoSeleccionado}`;
         }
 
     } catch (error) {
