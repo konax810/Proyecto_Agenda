@@ -1,3 +1,4 @@
+const { appendFile } = require("fs");
 const http = require("http");
 const mongoose = require("mongoose");
 
@@ -6,6 +7,10 @@ const url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/Agenda2026";
 const hostname = "0.0.0.0";
 // RAILWAY TE ASIGNA EL PUERTO AUTOMÁTICAMENTE, SI NO, USA EL 3000
 const port = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running at http://0.0.0.0:${PORT}/`);
+});
 
 mongoose
   .connect(url, {serverSelectionTimeoutMS: 2000}) //solo busca 2 segundos y sigue

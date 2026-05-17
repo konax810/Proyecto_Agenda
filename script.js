@@ -1,3 +1,4 @@
+// En lugar de la URL de Railway, usa tu servidor local para leer tu Compass
 const SERVIDOR = 'https://proyectoagenda-production.up.railway.app';
 
 //Código para mostrar el nombre del ususario
