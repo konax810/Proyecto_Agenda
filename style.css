@@ -443,7 +443,7 @@
     .badge-universidad { background-color: #003262 !important; }
     .badge-gym         { background-color: #ff4500 !important; }
     .badge-musica      { background-color: #8a2be2 !important; }
-    .badge- , [class^="badge-"] {
+    [class^="badge-"] {
     background-color: #6366f1;
     }
 
