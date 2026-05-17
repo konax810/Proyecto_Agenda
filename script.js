@@ -206,7 +206,7 @@ function filtrar(cat) {
         cargarContactos(cat);
 }
 
-async function cargarContactos(grupo = 'General') {
+async function cargarContactos(grupoSeleccionado = 'General') {
     // 1. Obtenemos el usuario del badge (o sebastian por defecto)
     const badge = document.getElementById('nombreUserDisplay');
     const usuarioActual = (badge && badge.innerText.trim() !== "") 
@@ -215,17 +215,23 @@ async function cargarContactos(grupo = 'General') {
 
     try {
         // 2. Pedimos los contactos al servidor filtrando por dueño y grupo
-        const url = `${SERVIDOR}/contactos?usuario=${usuarioActual}&grupo=${grupo}`;
+        const url = `${SERVIDOR}/contactos?usuarioOwner=${usuarioActual}`;
         const respuesta = await fetch(url);
         const contactos = await respuesta.json();
 
-        // 3. Usamos tu función existente para dibujarlos en la pantalla
+        // 🔎 FILTRADO: Usamos '.grupo' que es el nombre real en tu MongoDB
+        let contactosFiltrados = contactos;
+        if (grupoSeleccionado !== 'General') {
+            contactosFiltrados = contactos.filter(c => c.grupo === grupoSeleccionado);
+        }
+
+        // Dibujamos los contactos filtrados en la pantalla
         renderizarContactos(contactos);
 
-        // 4. Actualizamos el título de la columna central
+        // Actualizamos el título de la columna central
         const titulo = document.getElementById('tituloLista');
         if (titulo) {
-            titulo.innerText = grupo === 'General' ? "Todos los Contactos" : `Contactos: ${grupo}`;
+            titulo.innerText = grupoSeleccionado === 'General' ? "Todos los Contactos" : `Contactos: ${grupoSeleccionado}`;
         }
 
     } catch (error) {
