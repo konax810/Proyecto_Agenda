@@ -1,9 +1,11 @@
 const http = require("http");
 const mongoose = require("mongoose");
 
-const url = "mongodb://127.0.0.1:27017/Agenda2026";
+// SI EXISTE LA VARIABLE DE INTERNET (RAILWAY), USA ESA. SI NO, USA TU BASE LOCAL.
+const url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/Agenda2026";
 const hostname = "0.0.0.0";
-const port = 3000;
+// RAILWAY TE ASIGNA EL PUERTO AUTOMÁTICAMENTE, SI NO, USA EL 3000
+const port = process.env.PORT || 3000;
 
 mongoose
   .connect(url)
@@ -233,5 +235,5 @@ else if (req.method === "PUT" && req.url.startsWith("/contactos/")) {
 
 // Finalizar con el listen
 server.listen(port, hostname, () => {
-    console.log(`🚀 Servidor corriendo en http://${hostname}:${port}/`);
+    console.log(`Server running at http://${hostname}:${port}/`);
 });
