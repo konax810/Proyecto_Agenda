@@ -1,6 +1,4 @@
-const SERVIDOR = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-? 'http://127.0.0.1:8080'
-: 'https://proyectoagenda-production.up.railway.app';
+const SERVIDOR = 'https://proyectoagenda-production.up.railway.app';
 
 //Código para mostrar el nombre del ususario
 window.onload = () => {
@@ -86,7 +84,7 @@ async function loguearUsuario() {
 
     try {
         // 3. COMUNICACIÓN CON EL SERVIDOR
-        const respuesta = await fetch(`${SERVIDOR}/contactos?usuarioOwner=${usuarioActual}`, {
+        const respuesta = await fetch(`${SERVIDOR}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usuario: userLimpio, clave: passLimpia })

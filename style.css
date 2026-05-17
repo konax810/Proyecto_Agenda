@@ -171,14 +171,6 @@
         flex-shrink: 0; /* Evita que los botones se achiquen */
     }
 
-    .user-badge-container {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 0;
-    }
-
     .switch-dark {
         width: 100%;
         margin-top: 0;
@@ -209,19 +201,11 @@
         padding: 10px;
     }
 
-    /* Poner usuario y salir en una fila */
-    .user-badge-container {
-        flex-direction: row !important;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 0;
-    }
-
 }
 
         /* Limitar el alto de la sección de categorías */
         .filtros {
-            flex-grow: 1; 
+            flex-grow: 0; 
             margin-top: 20px;
             max-height: 50vh; /* Ocupa máximo la mitad de la pantalla */
             overflow-y: auto; /* Activa el scroll interno */
@@ -294,6 +278,11 @@
             border-right: 1px solid var(--border-color); 
             display: flex;
             flex-direction: column;
+            /* 🔥 ESTA LÍNEA ES LA MAGIA: distribuye el logo arriba, los filtros en el medio 
+            y empuja automáticamente el bloque de usuario y modo oscuro al puro fondo */
+            justify-content: flex-start;
+            height: 100vh;
+            box-sizing: border-box;
         }
 
         .logo-title { cursor: pointer; transition: 0.2s; }
@@ -365,13 +354,23 @@
         }
 
         .switch-dark {
-            margin-top: auto;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: background 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 10px !important; /* 🔥 Controla el espacio exacto (10px) debajo de la tarjeta de usuario */
             padding: 10px;
             background: rgba(255,255,255,0.1);
             border-radius: 8px;
             text-align: center;
             cursor: pointer;
             font-size: 0.8rem;
+        }
+
+        .switch-dark:hover{
+            background: rgba(255, 255, 255, 0.18);
         }
 
         input, textarea { 
@@ -460,16 +459,21 @@
             grid-column: span 2;
         }
 
+        /* Restaura el contenedor del usuario abajo para que no se separe feo */
         .user-badge-container {
-            margin-top: auto; 
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05); 
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column; 
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            margin-top: auto !important; /*Empuja todo el bloque al puro fondo de la barra */
+            padding: 12px !important;
+            background: rgba(255, 255, 255, 0.05) !important; 
+            border-radius: 10px !important;
+            margin-bottom: 8px !important;
+            display: flex !important;
+            flex-direction: row !important; 
+            justify-content: space-between !important;
+            align-items: center !important;
+            gap: 8px !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important; 
+            width: 100%;
+            box-sizing: border-box;
             border-top: 1px solid rgba(255, 255, 255, 0.2); 
         }
 
@@ -479,13 +483,15 @@
         font-weight: bold;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 110px; /* Evita que el nombre largo empuje al botón */
     }
 
     .btn-cerrar-sesion {
         background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
         color: white;
         border: none;
-        padding: 6px;
+        padding: 6px 10px;
         border-radius: 5px;
         cursor: pointer;
         font-size: 0.75rem;
@@ -497,21 +503,27 @@
         transform: scale(1.02);
     }
 
-        label b { display: inline-block; margin-bottom: 8px; margin-top: 5px; color: var(--text-main); opacity: 0.9; }
+        label b { 
+            display: inline-block; 
+            margin-bottom: 8px; 
+            margin-top: 5px; 
+            color: var(--text-main); 
+            opacity: 0.9; 
+        }
 
         /*todo el código style presente */
     
-    .sidebar ul li, .lista-categorias li,aside ul li{
+    .sidebar ul li, .lista-categorias li, .categories li, aside ul li, [id^="categoria"]{
         display: flex !important;
         align-items: center !important;
         padding: 10px 15px !important; /* Da espacio arriba, abajo y a los lados */
         margin-bottom: 8px !important; /* Separa un subgrupo del otro verticalmente */
-        border-radius: 6px;
+        border-radius: 6px !important;
         cursor: pointer;
         transition: background 0.2s ease;
     }
 
     /* Espacio interno para que los emojis no queden pegados al texto */
-    .sidebar ul li b, .sidebar ul li span, aside ul li div {
+    .sidebar ul li b, .sidebar ul li span, .sidebar ul li i, aside ul li div{
         margin-right: 10px !important;
     }
