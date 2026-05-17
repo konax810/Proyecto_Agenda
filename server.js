@@ -235,7 +235,7 @@ const server = http.createServer(async (req, res) => {
             return res.end(JSON.stringify({
                 estado: "ONLINE",
                 proyecto: "Backend Agend 2026 - Universidad Surcolombiana",
-                mensaje: "¡Servidor API desplegado con éxito en Railway! Los endpoints /login y /guardar están operativos."
+                mensaje: "¡Servidor API y Base de Datos conectados con éxito en la nube!"
             }));
         }
 
