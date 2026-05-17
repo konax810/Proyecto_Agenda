@@ -197,27 +197,13 @@ async function actualizarGruposDinamicos() {
 }
 
 function filtrar(cat) {
-    const display = document.getElementById('nombreUserDisplay');
-    // Limpiamos el nombre para que el servidor lo entienda
-    const usuarioActual = display.innerText.replace("👤", "").trim().toLowerCase() || "sebastian";
-    
     const listaContenedor = document.getElementById('listaContactos');
-    listaContenedor.innerHTML = "<p style='padding:20px; opacity:0.5;'>Cargando...</p>";
+        if(listaContenedor){
+            listaContenedor.innerHTML = "<p style='padding:20px; opacity:0.5;'>Cargando...</p>";
+        }
 
-    // IMPORTANTE: Asegúrate de que la URL sea exactamente la que configuraste en tu server.js
-    fetch(`${SERVIDOR}/contactos?grupo=${cat}&usuarioOwner=${usuarioActual}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.length === 0) {
-                listaContenedor.innerHTML = "<p style='padding:20px;'>No hay contactos en este grupo.</p>";
-            } else {
-                renderizarContactos(data); // <--- Verifica que esta función exista abajo
-            }
-        })
-        .catch(err => {
-            console.error("Error:", err);
-            listaContenedor.innerHTML = "<p style='color:red;'>Error de conexión</p>";
-        });
+        //Ejecutamos la función que sí tiene asaync/await y actualiza los títulos
+        cargarContactos(cat);
 }
 
 async function cargarContactos(grupo = 'General') {
@@ -244,6 +230,10 @@ async function cargarContactos(grupo = 'General') {
 
     } catch (error) {
         console.error("❌ Error al cargar contactos:", error);
+        const listaContenedor = document.getElementById('listaContactos');
+        if (listaContenedor) {
+            listaContenedor.innerHTML = "<p style='color:red;'>Error al cargar los contactos</p>";
+        }
     }
 }
 
