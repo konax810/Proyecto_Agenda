@@ -86,7 +86,7 @@ async function loguearUsuario() {
 
     try {
         // 3. COMUNICACIÓN CON EL SERVIDOR
-        const respuesta = await fetch(`${SERVIDOR}/login'`, {
+        const respuesta = await fetch(`${SERVIDOR}/contactos?usuarioOwner=${usuarioActual}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usuario: userLimpio, clave: passLimpia })

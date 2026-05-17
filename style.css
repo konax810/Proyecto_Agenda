@@ -500,3 +500,18 @@
         label b { display: inline-block; margin-bottom: 8px; margin-top: 5px; color: var(--text-main); opacity: 0.9; }
 
         /*todo el código style presente */
+    
+    .sidebar ul li, .lista-categorias li,aside ul li{
+        display: flex !important;
+        align-items: center !important;
+        padding: 10px 15px !important; /* Da espacio arriba, abajo y a los lados */
+        margin-bottom: 8px !important; /* Separa un subgrupo del otro verticalmente */
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    /* Espacio interno para que los emojis no queden pegados al texto */
+    .sidebar ul li b, .sidebar ul li span, aside ul li div {
+        margin-right: 10px !important;
+    }
