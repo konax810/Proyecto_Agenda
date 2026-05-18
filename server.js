@@ -155,9 +155,10 @@ const server = http.createServer(async (req, res) => {
     // 5. RUTA: OBTENER CONTACTOS
     else if (req.method === "GET" && req.url.startsWith("/contactos")) {
         try{
-            const urlParams = new URL(req.url, `http://${hostname}:${port}`);
+            // Extraer el usuarioOwner de la URL si viene, si no usa "sebastian"
+            const urlParams = new URL(req.url, `http://${req.headers.host}`);
             const grupo = urlParams.searchParams.get("grupo");
-            const usuarioLogueado = urlParams.searchParams.get("usuarioOwner") || urlParams.searchParams.get("usuario");  
+            const usuarioLogueado = urlParams.searchParams.get("usuarioOwner") || urlParams.searchParams.get("usuario") || "sebastian";  
 
             // Filtro "inteligente": busca en usuarioOwner O en usuarioID, ignorando mayúsculas
             let filtro = {
@@ -171,12 +172,15 @@ const server = http.createServer(async (req, res) => {
                 filtro.grupo = grupo;
             }
 
-            const contactos = await Contacto.find(filtro);
+            // Hacemos una única consulta limpia a MongoDB Atlas usando el filtro
+            const contactosObtenidos = await Contacto.find(filtro);
+
             res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify(contactos));
+            return res.end(JSON.stringify(contactosObtenidos));
+
         } catch (err) {
             res.writeHead(500, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({mensaje: "Error al obtener contactos", error: err.message}));
+            return res.end(JSON.stringify({ mensaje: "Error al obtener contactos"}));
         }
         return;
     }
