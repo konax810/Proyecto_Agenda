@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 // 1. CONFIGURACIÓN DINÁMICA DE BASE DE DATOS Y PUERTO
 const url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/Agenda2026";
 const hostname = "0.0.0.0";
+
+const express = require('express');
+const app = express();
 // RAILWAY TE ASIGNA EL PUERTO AUTOMÁTICAMENTE, SI NO, USA EL 3000
 const port = process.env.PORT || 3000;
 
