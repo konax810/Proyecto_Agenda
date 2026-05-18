@@ -9,7 +9,7 @@ const hostname = "0.0.0.0";
 const express = require('express');
 const app = express();
 // RAILWAY TE ASIGNA EL PUERTO AUTOMÁTICAMENTE, SI NO, USA EL 3000
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://0.0.0.0:${PORT}/`);
