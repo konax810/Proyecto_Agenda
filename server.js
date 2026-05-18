@@ -6,18 +6,12 @@ const mongoose = require("mongoose");
 const url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/Agenda2026";
 const hostname = "0.0.0.0";
 
-const express = require('express');
-const app = express();
 // RAILWAY TE ASIGNA EL PUERTO AUTOMÁTICAMENTE, SI NO, USA EL 3000
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running at http://0.0.0.0:${PORT}/`);
-});
-
 mongoose
   .connect(url, {serverSelectionTimeoutMS: 2000}) //solo busca 2 segundos y sigue
-  .then(() => console.log("✅ Conectado"))
+  .then(() => console.log("✅ Conectado a MongoDB"))
   .catch((err) => console.error("⚠️ Mongo local no disponible en la nube, pero el servidor sigue vivo.", err));
 
 const contactoSchema = new mongoose.Schema({
@@ -255,5 +249,5 @@ const server = http.createServer(async (req, res) => {
 
     // Finalizar con el listen
     server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running at http://${hostname}:${PORT}/`);
 });
